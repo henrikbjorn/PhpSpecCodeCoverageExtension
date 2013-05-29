@@ -8,8 +8,9 @@
     },
 
     "require" : {
-        "php" : ">=5.3.4",
-        "phpspec/phpspec" : "2.0@dev"
+        "php"                       : ">=5.3.4",
+        "phpspec/phpspec"           : "dev-master",
+        "phpunit/php-code-coverage" : "~1.2"
     },
 
     "extra" : {
