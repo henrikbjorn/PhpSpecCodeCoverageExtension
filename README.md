@@ -1,7 +1,7 @@
-PhpSpec Code Coverage
-=====================
+[PhpSpec](http://phpspec.net) Code Coverage
+===========================================
 
-Install it trought Composer:
+Add it to your `composer.json` file to install with [Composer](http://getcomposer.org):
 
 ``` json
 {
@@ -33,4 +33,4 @@ adding a `code_coverage` key which takes a hash of options.
 
 * `whitelist` takes an array of directories to whitelist (default: `lib`, `src`).
 * `blacklist` takes an array of directories to blacklist (default: `test`, `spec`, `vendor`).
-* `output` takes a location relative to the place you are running `phpspec run` (defaulta: `coverage`).
+* `output` takes a location relative to the place you are running `phpspec run` (default: `coverage`).
