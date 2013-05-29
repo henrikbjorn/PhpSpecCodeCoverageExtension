@@ -3,7 +3,7 @@
 namespace PhpSpec\Extension\Listener;
 
 use PhpSpec\Console\IO;
-use PhpSpec\Event\SpecificationEvent;
+use PhpSpec\Event\ExampleEvent;
 use PhpSpec\Event\SuiteEvent;
 
 class CodeCoverageListener implements \Symfony\Component\EventDispatcher\EventSubscriberInterface
@@ -32,12 +32,19 @@ class CodeCoverageListener implements \Symfony\Component\EventDispatcher\EventSu
         array_map(array($filter, 'addDirectoryToBlacklist'), $this->options['blacklist']);
     }
 
-    public function beforeSpecification(SpecificationEvent $event)
+    public function beforeExample(ExampleEvent $event)
     {
-        $this->coverage->start($event->getSpecification()->getTitle());
+        $example = $event->getExample();
+
+        $name = strtr('%spec%::%example%', array(
+            '%spec%' => $example->getSpecification()->getClassReflection()->getName(),
+            '%example%' => $example->getFunctionReflection()->getName(),
+        ));
+
+        $this->coverage->start($name);
     }
 
-    public function afterSpecification(SpecificationEvent $event)
+    public function afterExample(ExampleEvent $event)
     {
         $this->coverage->stop();
     }
@@ -68,10 +75,10 @@ class CodeCoverageListener implements \Symfony\Component\EventDispatcher\EventSu
     public static function getSubscribedEvents()
     {
         return array(
-            'beforeSpecification' => array('beforeSpecification', -10),
-            'afterSpecification' => array('afterSpecification', -10),
-            'beforeSuite' => array('beforeSuite', -10),
-            'afterSuite' => array('afterSuite', -10),
+            'beforeExample' => array('beforeExample', -10),
+            'afterExample'  => array('afterExample', -10),
+            'beforeSuite'   => array('beforeSuite', -10),
+            'afterSuite'    => array('afterSuite', -10),
         );
     }
 }
