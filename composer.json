@@ -4,7 +4,7 @@
     "license" : "MIT",
 
     "autoload" : {
-        "PSR-0" : { "PhpSpec\Extension\" : "src" }
+        "psr-0" : { "PhpSpec\\Extension\\" : "src" }
     },
 
     "require" : {
