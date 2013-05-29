@@ -2,6 +2,7 @@
 
 namespace PhpSpec\Extension\Listener;
 
+use PhpSpec\Console\IO;
 use PhpSpec\Event\SpecificationEvent;
 use PhpSpec\Event\SuiteEvent;
 
@@ -9,20 +10,18 @@ class CodeCoverageListener implements \Symfony\Component\EventDispatcher\EventSu
 {
     private $coverage;
     private $report;
-    private $options = array(
-        'whitelist' => array('src', 'lib'),
-        'blacklist' => array('vendor', 'spec'),
-        'output'    => 'coverage',
-    );
+    private $io;
+    private $options;
 
-    public function __construct(
-        \PHP_CodeCoverage $coverage,
-        \PHP_CodeCoverage_Report_HTML $report,
-        array $options = array())
+    public function __construct(\PHP_CodeCoverage $coverage, \PHP_CodeCoverage_Report_HTML $report)
     {
         $this->coverage = $coverage;
         $this->report   = $report;
-        $this->options  = $this->options + $options;
+        $this->options  = array(
+            'whitelist' => array('src', 'lib'),
+            'blacklist' => array('vendor', 'spec'),
+            'output'    => 'coverage',
+        );
     }
 
     public function beforeSuite(SuiteEvent $event)
@@ -45,7 +44,22 @@ class CodeCoverageListener implements \Symfony\Component\EventDispatcher\EventSu
 
     public function afterSuite(SuiteEvent $event)
     {
+        if ($this->io) {
+            $this->io->writeln('');
+            $this->io->writeln('Generating code coverage report in HTML format ...');
+        }
+
         $this->report->process($this->coverage, $this->options['output']);
+    }
+
+    public function setIO(IO $io)
+    {
+        $this->io = $io;
+    }
+
+    public function setOptions(array $options)
+    {
+        $this->options = $this->options + $options;
     }
 
     /**

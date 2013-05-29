@@ -3,6 +3,7 @@
 namespace PhpSpec\Extension;
 
 use PhpSpec\ServiceContainer;
+use PhpSpec\Extension\Listener\CodeCoverageListener;
 
 /**
  * Injects a Event Subscriber into the EventDispatcher. The Subscriber
@@ -28,13 +29,11 @@ class CodeCoverageExtension implements \PhpSpec\Extension\ExtensionInterface
         });
 
         $container->setShared('event_dispatcher.listeners.code_coverage', function ($container) {
-            $options = (array) $container->getParam('code_coverage');
+            $listener = new CodeCoverageListener($container->get('code_coverage'), $container->get('code_coverage.report'));
+            $listener->setIO($container->get('console.io'));
+            $listener->setOptions($container->getParam('code_coverage', array()));
 
-            return new Listener\CodeCoverageListener(
-                $container->get('code_coverage'),
-                $container->get('code_coverage.report'),
-                $options
-            );
+            return $listener;
         });
     }
 }
