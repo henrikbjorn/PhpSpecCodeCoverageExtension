@@ -1,6 +1,7 @@
 {
     "name" : "henrikbjorn/phpspec-code-coverage",
     "description" : "Integrates CodeCoverage with PhpSpec",
+    "license" : "MIT",
 
     "autoload" : {
         "PSR-0" : { "PhpSpec\Extension\" : "src" }
