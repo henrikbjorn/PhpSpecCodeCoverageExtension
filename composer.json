@@ -1,0 +1,19 @@
+{
+    "name" : "henrikbjorn/phpspec-code-coverage",
+    "description" : "Integrates CodeCoverage with PhpSpec",
+
+    "autoload" : {
+        "PSR-0" : { "PhpSpec\Extension\" : "src" }
+    },
+
+    "require" : {
+        "php" : ">=5.3.4",
+        "phpspec/phpspec" : "2.0@dev"
+    },
+
+    "extra" : {
+        "branch-alias" : {
+            "dev-master" : "1.0.x-dev"
+        }
+    }
+}
