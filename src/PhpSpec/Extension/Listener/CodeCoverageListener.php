@@ -66,7 +66,7 @@ class CodeCoverageListener implements \Symfony\Component\EventDispatcher\EventSu
 
     public function setOptions(array $options)
     {
-        $this->options = $this->options + $options;
+        $this->options = array_merge($this->options, $options);
     }
 
     /**
