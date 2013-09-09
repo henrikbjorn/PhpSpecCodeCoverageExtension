@@ -13,7 +13,7 @@ class CodeCoverageListener implements \Symfony\Component\EventDispatcher\EventSu
     private $io;
     private $options;
 
-    public function __construct(\PHP_CodeCoverage $coverage, \PHP_CodeCoverage_Report_HTML $report)
+    public function __construct(\PHP_CodeCoverage $coverage, $report)
     {
         $this->coverage = $coverage;
         $this->report   = $report;
@@ -21,6 +21,7 @@ class CodeCoverageListener implements \Symfony\Component\EventDispatcher\EventSu
             'whitelist' => array('src', 'lib'),
             'blacklist' => array('vendor', 'spec'),
             'output'    => 'coverage',
+            'format'    => 'html',
         );
     }
 
@@ -53,7 +54,7 @@ class CodeCoverageListener implements \Symfony\Component\EventDispatcher\EventSu
     {
         if ($this->io) {
             $this->io->writeln('');
-            $this->io->writeln('Generating code coverage report in HTML format ...');
+            $this->io->writeln(sprintf('Generating code coverage report in %s format ...', $this->options['format']));
         }
 
         $this->report->process($this->coverage, $this->options['output']);
