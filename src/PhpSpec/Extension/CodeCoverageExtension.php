@@ -24,8 +24,20 @@ class CodeCoverageExtension implements \PhpSpec\Extension\ExtensionInterface
             return new \PHP_CodeCoverage(null, $container->get('code_coverage.filter'));
         });
 
-        $container->setShared('code_coverage.report', function () {
-            return new \PHP_CodeCoverage_Report_HTML;
+        $container->setShared('code_coverage.report', function ($container) {
+            $options = $container->getParam('code_coverage');
+
+            switch ($options['format']) {
+                case 'clover':
+                    return new \PHP_CodeCoverage_Report_Clover();
+                case 'php':
+                    return new \PHP_CodeCoverage_Report_PHP();
+                case 'text':
+                    return new \PHP_CodeCoverage_Report_Text(new \PHPUnit_Util_Printer());
+                case 'html':
+                default:
+                    return new \PHP_CodeCoverage_Report_HTML();
+            }
         });
 
         $container->setShared('event_dispatcher.listeners.code_coverage', function ($container) {
