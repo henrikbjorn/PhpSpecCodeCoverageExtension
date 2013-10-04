@@ -34,3 +34,4 @@ adding a `code_coverage` key which takes a hash of options.
 * `whitelist` takes an array of directories to whitelist (default: `lib`, `src`).
 * `blacklist` takes an array of directories to blacklist (default: `test`, `spec`, `vendor`).
 * `output` takes a location relative to the place you are running `phpspec run` (default: `coverage`).
+* `format` (optional) could be one of: `clover`, `php`, `text`, `html` (default `html`)
