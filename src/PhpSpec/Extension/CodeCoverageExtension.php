@@ -27,6 +27,10 @@ class CodeCoverageExtension implements \PhpSpec\Extension\ExtensionInterface
         $container->setShared('code_coverage.report', function ($container) {
             $options = $container->getParam('code_coverage');
 
+            if (!isset($options['format'])) {
+                $options['format'] = 'html';
+            }
+
             switch ($options['format']) {
                 case 'clover':
                     return new \PHP_CodeCoverage_Report_Clover();
