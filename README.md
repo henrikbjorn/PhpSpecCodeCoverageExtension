@@ -35,3 +35,6 @@ adding a `code_coverage` key which takes a hash of options.
 * `blacklist` takes an array of directories to blacklist (default: `test`, `spec`, `vendor`).
 * `output` takes a location relative to the place you are running `phpspec run` (default: `coverage`).
 * `format` (optional) could be one of: `clover`, `php`, `text`, `html` (default `html`)
+* `show_uncovered_files` for including uncovered files in coverage reports (default `true`)
+* `lower_upper_bound` for coverage (default `35`)
+* `high_lower_bound` for coverage (default `70`)
