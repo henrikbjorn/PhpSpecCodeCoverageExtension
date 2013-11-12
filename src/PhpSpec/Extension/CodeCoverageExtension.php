@@ -31,13 +31,23 @@ class CodeCoverageExtension implements \PhpSpec\Extension\ExtensionInterface
                 $options['format'] = 'html';
             }
 
+            if (!isset($options['show_uncovered_files'])) {
+                $options['show_uncovered_files'] = true;
+            }
+            if (!isset($options['lower_upper_bound'])) {
+                $options['lower_upper_bound'] = 35;
+            }
+            if (!isset($options['high_lower_bound'])) {
+                $options['high_lower_bound'] = 70;
+            }
+
             switch ($options['format']) {
                 case 'clover':
                     return new \PHP_CodeCoverage_Report_Clover();
                 case 'php':
                     return new \PHP_CodeCoverage_Report_PHP();
                 case 'text':
-                    return new \PHP_CodeCoverage_Report_Text(new \PHPUnit_Util_Printer());
+                    return new \PHP_CodeCoverage_Report_Text(new \PHPUnit_Util_Printer(), $options['lower_upper_bound'], $options['high_lower_bound'], $options['show_uncovered_files']);
                 case 'html':
                 default:
                     return new \PHP_CodeCoverage_Report_HTML();
