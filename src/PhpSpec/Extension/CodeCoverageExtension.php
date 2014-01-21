@@ -47,7 +47,7 @@ class CodeCoverageExtension implements \PhpSpec\Extension\ExtensionInterface
                 case 'php':
                     return new \PHP_CodeCoverage_Report_PHP();
                 case 'text':
-                    return new \PHP_CodeCoverage_Report_Text($options['lower_upper_bound'], $options['high_lower_bound'], $options['show_uncovered_files']);
+                    return new \PHP_CodeCoverage_Report_Text($options['lower_upper_bound'], $options['high_lower_bound'], $options['show_uncovered_files'], /* $showOnlySummary */ false);
                 case 'html':
                 default:
                     return new \PHP_CodeCoverage_Report_HTML();
