@@ -57,7 +57,12 @@ class CodeCoverageListener implements \Symfony\Component\EventDispatcher\EventSu
             $this->io->writeln(sprintf('Generating code coverage report in %s format ...', $this->options['format']));
         }
 
-        $this->report->process($this->coverage, $this->options['output']);
+        if ($this->options['format'] == 'text') {
+            $output = $this->report->process($this->coverage, /* showColors */ true);
+            $this->io->writeln($output);
+        } else {
+            $this->report->process($this->coverage, $this->options['output']);
+        }
     }
 
     public function setIO(IO $io)
