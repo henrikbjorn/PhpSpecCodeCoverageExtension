@@ -22,6 +22,7 @@ class CodeCoverageListener implements \Symfony\Component\EventDispatcher\EventSu
             'blacklist' => array('vendor', 'spec'),
             'output'    => 'coverage',
             'format'    => 'html',
+            'verbose'   => 'true'
         );
     }
 
@@ -52,7 +53,7 @@ class CodeCoverageListener implements \Symfony\Component\EventDispatcher\EventSu
 
     public function afterSuite(SuiteEvent $event)
     {
-        if ($this->io) {
+        if ($this->io && $this->options['verbose'] == 'true') {
             $this->io->writeln('');
             $this->io->writeln(sprintf('Generating code coverage report in %s format ...', $this->options['format']));
         }
