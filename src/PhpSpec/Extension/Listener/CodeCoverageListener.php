@@ -20,6 +20,8 @@ class CodeCoverageListener implements \Symfony\Component\EventDispatcher\EventSu
         $this->options  = array(
             'whitelist' => array('src', 'lib'),
             'blacklist' => array('vendor', 'spec'),
+            'whitelist_files' => array(),
+            'blacklist_files' => array(),
             'output'    => 'coverage',
             'format'    => 'html',
         );
@@ -31,6 +33,8 @@ class CodeCoverageListener implements \Symfony\Component\EventDispatcher\EventSu
 
         array_map(array($filter, 'addDirectoryToWhitelist'), $this->options['whitelist']);
         array_map(array($filter, 'addDirectoryToBlacklist'), $this->options['blacklist']);
+        array_map(array($filter, 'addFilesToWhitelist'), $this->options['whitelist_files']);
+        array_map(array($filter, 'addFilesToBlacklist'), $this->options['blacklist_files']);
     }
 
     public function beforeExample(ExampleEvent $event)
