@@ -33,8 +33,8 @@ class CodeCoverageListener implements \Symfony\Component\EventDispatcher\EventSu
 
         array_map(array($filter, 'addDirectoryToWhitelist'), $this->options['whitelist']);
         array_map(array($filter, 'addDirectoryToBlacklist'), $this->options['blacklist']);
-        array_map(array($filter, 'addFilesToWhitelist'), $this->options['whitelist_files']);
-        array_map(array($filter, 'addFilesToBlacklist'), $this->options['blacklist_files']);
+        array_map(array($filter, 'addFileToWhitelist'), $this->options['whitelist_files']);
+        array_map(array($filter, 'addFileToBlacklist'), $this->options['blacklist_files']);
     }
 
     public function beforeExample(ExampleEvent $event)
