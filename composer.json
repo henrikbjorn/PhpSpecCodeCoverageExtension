@@ -10,7 +10,7 @@
     "require" : {
         "php"                       : ">=5.3.3",
         "phpspec/phpspec"           : "2.0.*@dev",
-        "phpunit/php-code-coverage" : "~1.2"
+        "phpunit/php-code-coverage" : "~2.0"
     },
 
     "extra" : {
