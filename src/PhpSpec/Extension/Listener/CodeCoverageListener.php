@@ -9,21 +9,21 @@ use PhpSpec\Event\SuiteEvent;
 class CodeCoverageListener implements \Symfony\Component\EventDispatcher\EventSubscriberInterface
 {
     private $coverage;
-    private $report;
+    private $reports;
     private $io;
     private $options;
 
-    public function __construct(\PHP_CodeCoverage $coverage, $report)
+    public function __construct(\PHP_CodeCoverage $coverage, array $reports)
     {
         $this->coverage = $coverage;
-        $this->report   = $report;
+        $this->reports  = $reports;
         $this->options  = array(
             'whitelist' => array('src', 'lib'),
             'blacklist' => array('vendor', 'spec'),
             'whitelist_files' => array(),
             'blacklist_files' => array(),
             'output'    => 'coverage',
-            'format'    => 'html',
+            'format'    => array('html'),
         );
     }
 
@@ -58,14 +58,19 @@ class CodeCoverageListener implements \Symfony\Component\EventDispatcher\EventSu
     {
         if ($this->io->isVerbose()) {
             $this->io->writeln('');
-            $this->io->writeln(sprintf('Generating code coverage report in %s format ...', $this->options['format']));
         }
 
-        if ($this->options['format'] == 'text') {
-            $output = $this->report->process($this->coverage, /* showColors */ true);
-            $this->io->writeln($output);
-        } else {
-            $this->report->process($this->coverage, $this->options['output']);
+        foreach ($this->reports as $format => $report) {
+            if ($this->io) {
+                $this->io->writeln(sprintf('Generating code coverage report in %s format ...', $format));
+            }
+
+            if ($report instanceof \PHP_CodeCoverage_Report_Text) {
+                $output = $report->process($this->coverage, /* showColors */ true);
+                $this->io->writeln($output);
+            } else {
+                $report->process($this->coverage, $this->options['output'][$format]);
+            }
         }
     }
 
