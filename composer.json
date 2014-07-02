@@ -14,6 +14,10 @@
         "ext-xdebug"                : ">=2.1.4"
     },
 
+    "require-dev": {
+        "bossa/phpspec2-expect": "~1.0"
+    },
+
     "extra" : {
         "branch-alias" : {
             "dev-master" : "1.0.x-dev"
