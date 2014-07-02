@@ -49,6 +49,8 @@ class CodeCoverageExtension implements \PhpSpec\Extension\ExtensionInterface
             if (!isset($options['high_lower_bound'])) {
                 $options['high_lower_bound'] = 70;
             }
+
+            return $options;
         });
 
         $container->setShared('code_coverage.reports', function ($container) {

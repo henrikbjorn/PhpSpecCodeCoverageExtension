@@ -64,8 +64,9 @@ class CodeCoverageListenerSpec extends ObjectBehavior
             'format' => 'text'
         ));
 
+        $io->isVerbose()->willReturn(false);
         $this->setIO($io);
-        $io->writeln('')->shouldBeCalled();
+
         $io->writeln('Generating code coverage report in text format ...')->shouldBeCalled();
 
         $text->process($coverage, true)->willReturn('report');
