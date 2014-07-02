@@ -15,7 +15,6 @@
     },
 
     "require-dev": {
-        "phpspec/phpspec"      : "2.0.*@dev",
         "bossa/phpspec2-expect": "~1.0"
     },
 
