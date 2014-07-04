@@ -74,4 +74,30 @@ class CodeCoverageListenerSpec extends ObjectBehavior
 
         $this->afterSuite($event);
     }
+
+    function it_should_output_html_report(
+        \PHP_CodeCoverage $coverage,
+        \PHP_CodeCoverage_Report_HTML $html,
+        SuiteEvent $event,
+        IO $io
+    ) {
+        $reports = array(
+            'html' => $html
+        );
+
+        $this->beConstructedWith($coverage, $reports);
+        $this->setOptions(array(
+            'format' => 'html',
+            'output' => array('html' => 'coverage'),
+        ));
+
+        $io->isVerbose()->willReturn(false);
+        $this->setIO($io);
+
+        $io->writeln('Generating code coverage report in html format ...')->shouldBeCalled();
+
+        $html->process($coverage, 'coverage')->willReturn('report');
+
+        $this->afterSuite($event);
+    }
 }
