@@ -22,7 +22,7 @@ class CodeCoverageListener implements \Symfony\Component\EventDispatcher\EventSu
             'blacklist' => array('vendor', 'spec'),
             'whitelist_files' => array(),
             'blacklist_files' => array(),
-            'output'    => 'coverage',
+            'output'    => array('html' => 'coverage'),
             'format'    => array('html'),
         );
     }
