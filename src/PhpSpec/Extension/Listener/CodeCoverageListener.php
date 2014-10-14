@@ -10,13 +10,15 @@ class CodeCoverageListener implements \Symfony\Component\EventDispatcher\EventSu
 {
     private $coverage;
     private $reports;
+    private $format;
     private $io;
     private $options;
 
-    public function __construct(\PHP_CodeCoverage $coverage, array $reports)
+    public function __construct(\PHP_CodeCoverage $coverage, array $reports, $format = null)
     {
         $this->coverage = $coverage;
         $this->reports  = $reports;
+        $this->format   = $format;
         $this->options  = array(
             'whitelist' => array('src', 'lib'),
             'blacklist' => array('vendor', 'spec'),
@@ -61,7 +63,7 @@ class CodeCoverageListener implements \Symfony\Component\EventDispatcher\EventSu
         }
 
         foreach ($this->reports as $format => $report) {
-            if ($this->io) {
+            if ($this->io && !($this->format === 'html' || $this->format === 'junit')) {
                 $this->io->writeln(sprintf('Generating code coverage report in %s format ...', $format));
             }
 
