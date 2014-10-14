@@ -56,12 +56,12 @@ class CodeCoverageListener implements \Symfony\Component\EventDispatcher\EventSu
 
     public function afterSuite(SuiteEvent $event)
     {
-        if ($this->io->isVerbose()) {
+        if ($this->io && $this->io->isVerbose()) {
             $this->io->writeln('');
         }
 
         foreach ($this->reports as $format => $report) {
-            if ($this->io) {
+            if ($this->io && $this->io->isVerbose()) {
                 $this->io->writeln(sprintf('Generating code coverage report in %s format ...', $format));
             }
 

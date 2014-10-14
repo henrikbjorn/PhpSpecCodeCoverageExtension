@@ -67,8 +67,6 @@ class CodeCoverageListenerSpec extends ObjectBehavior
         $io->isVerbose()->willReturn(false);
         $this->setIO($io);
 
-        $io->writeln('Generating code coverage report in text format ...')->shouldBeCalled();
-
         $text->process($coverage, true)->willReturn('report');
         $io->writeln('report')->shouldBeCalled();
 
@@ -94,9 +92,35 @@ class CodeCoverageListenerSpec extends ObjectBehavior
         $io->isVerbose()->willReturn(false);
         $this->setIO($io);
 
-        $io->writeln('Generating code coverage report in html format ...')->shouldBeCalled();
+        $io->writeln(Argument::any())->shouldNotBeCalled();
+
 
         $html->process($coverage, 'coverage')->willReturn('report');
+
+        $this->afterSuite($event);
+    }
+
+    function it_should_provide_extra_output_in_verbose_mode(
+        \PHP_CodeCoverage $coverage,
+        \PHP_CodeCoverage_Report_HTML $html,
+        SuiteEvent $event,
+        IO $io
+    ) {
+        $reports = array(
+            'html' => $html,
+        );
+
+        $this->beConstructedWith($coverage, $reports);
+        $this->setOptions(array(
+            'format' => 'html',
+            'output' => array('html' => 'coverage'),
+        ));
+
+        $io->isVerbose()->willReturn(true);
+        $this->setIO($io);
+
+        $io->writeln('')->shouldBeCalled();
+        $io->writeln('Generating code coverage report in html format ...')->shouldBeCalled();
 
         $this->afterSuite($event);
     }
