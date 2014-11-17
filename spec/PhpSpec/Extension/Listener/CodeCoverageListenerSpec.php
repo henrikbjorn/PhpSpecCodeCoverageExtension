@@ -124,4 +124,31 @@ class CodeCoverageListenerSpec extends ObjectBehavior
 
         $this->afterSuite($event);
     }
+
+    function it_should_correctly_handle_black_listed_files_and_directories(
+        \PHP_CodeCoverage $coverage,
+        SuiteEvent $event,
+        \PHP_CodeCoverage_Filter $filter
+    )
+    {
+        $this->beConstructedWith($coverage, array());
+
+        $coverage->filter()->willReturn($filter);
+
+        $this->setOptions(array(
+            'whitelist' => array('src'),
+            'blacklist' => array('src/filter'),
+            'whitelist_files' => array('src/filter/whilelisted_file'),
+            'blacklist_files' => array('src/filtered_file')
+        ));
+
+        $filter->addDirectoryToWhitelist('src')->willReturn(null);
+        $filter->removeDirectoryFromWhitelist('src/filter')->willReturn(null);
+        $filter->addDirectoryToBlacklist('src/filter')->willReturn(null);
+        $filter->addFileToWhitelist('src/filter/whilelisted_file')->willReturn(null);
+        $filter->removeFileFromWhitelist('src/filtered_file')->willReturn(null);
+        $filter->addFileToBlacklist('src/filtered_file')->willReturn(null);
+
+        $this->beforeSuite($event);
+    }
 }
