@@ -3,7 +3,7 @@
     "description" : "Integrates CodeCoverage with PhpSpec",
     "license" : "MIT",
     "autoload" : {
-        "psr-4" : { "PhpSpec\\Extension\\" : "src/PhpSpec/Extension" }
+        "psr-4" : { "PhpSpec\\Extension\\" : "src/" }
     },
     "require" : {
         "php"                       : ">=5.3.3",
