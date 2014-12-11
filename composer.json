@@ -6,12 +6,13 @@
         "psr-4" : { "PhpSpec\\Extension\\" : "src/" }
     },
     "require" : {
-        "php"                       : ">=5.3.3",
-        "phpspec/phpspec"           : "~2.0",
-        "phpunit/php-code-coverage" : "~2.0",
-        "ext-xdebug"                : ">=2.1.4"
+        "php": ">=5.3.3",
+        "phpspec/phpspec": "~2.0",
+        "phpunit/php-code-coverage": "~2.0",
+
     },
     "require-dev": {
+        "ext-xdebug": ">=2.1.4",
         "bossa/phpspec2-expect": "~1.0"
     },
     "extra" : {
