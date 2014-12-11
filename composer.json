@@ -2,22 +2,18 @@
     "name" : "henrikbjorn/phpspec-code-coverage",
     "description" : "Integrates CodeCoverage with PhpSpec",
     "license" : "MIT",
-
     "autoload" : {
-        "psr-0" : { "PhpSpec\\Extension\\" : "src" }
+        "psr-4" : { "PhpSpec\\Extension\\" : "src/" }
     },
-
     "require" : {
         "php"                       : ">=5.3.3",
         "phpspec/phpspec"           : "~2.0",
         "phpunit/php-code-coverage" : "~2.0",
         "ext-xdebug"                : ">=2.1.4"
     },
-
     "require-dev": {
         "bossa/phpspec2-expect": "~1.0"
     },
-
     "extra" : {
         "branch-alias" : {
             "dev-master" : "1.0.x-dev"
