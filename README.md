@@ -6,7 +6,7 @@ Add it to your `composer.json` file to install with [Composer](http://getcompose
 ``` json
 {
     "require" : {
-        "henrikbjorn/phpspec-code-coverage": "~0.2"
+        "henrikbjorn/phpspec-code-coverage": "~1.0"
     }
 }
 ```
