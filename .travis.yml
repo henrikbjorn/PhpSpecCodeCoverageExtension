@@ -12,4 +12,7 @@ cache:
     directories:
         - $HOME/.composer/cache
 
+install:
+    - travis_retry composer install
+
 script: ./vendor/bin/phpspec run
