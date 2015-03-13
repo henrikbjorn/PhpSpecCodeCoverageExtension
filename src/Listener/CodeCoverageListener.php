@@ -12,6 +12,7 @@ class CodeCoverageListener implements \Symfony\Component\EventDispatcher\EventSu
     private $reports;
     private $io;
     private $options;
+    private $enabled;
 
     public function __construct(\PHP_CodeCoverage $coverage, array $reports)
     {
@@ -25,10 +26,16 @@ class CodeCoverageListener implements \Symfony\Component\EventDispatcher\EventSu
             'output'    => array('html' => 'coverage'),
             'format'    => array('html'),
         );
+
+        $this->enabled = extension_loaded('xdebug');
     }
 
     public function beforeSuite(SuiteEvent $event)
     {
+        if (!$this->enabled) {
+            return;
+        }
+
         $filter = $this->coverage->filter();
 
         array_map(array($filter, 'addDirectoryToWhitelist'), $this->options['whitelist']);
@@ -41,6 +48,10 @@ class CodeCoverageListener implements \Symfony\Component\EventDispatcher\EventSu
 
     public function beforeExample(ExampleEvent $event)
     {
+        if (!$this->enabled) {
+            return;
+        }
+
         $example = $event->getExample();
 
         $name = strtr('%spec%::%example%', array(
@@ -53,11 +64,23 @@ class CodeCoverageListener implements \Symfony\Component\EventDispatcher\EventSu
 
     public function afterExample(ExampleEvent $event)
     {
+        if (!$this->enabled) {
+            return;
+        }
+
         $this->coverage->stop();
     }
 
     public function afterSuite(SuiteEvent $event)
     {
+        if (!$this->enabled) {
+            if ($this->io && $this->io->isVerbose()) {
+                $this->io->writeln('The Xdebug extension is not loaded. No code coverage will be generated.');
+            }
+
+            return;
+        }
+
         if ($this->io && $this->io->isVerbose()) {
             $this->io->writeln('');
         }

@@ -12,7 +12,6 @@
 
     },
     "require-dev": {
-        "ext-xdebug": ">=2.1.4",
         "bossa/phpspec2-expect": "~1.0"
     },
     "extra" : {
