@@ -11,6 +11,9 @@
         "phpunit/php-code-coverage": "~2.0"
 
     },
+    "suggest": {
+        "ext-xdebug": "To allow Coverage generation."
+    },
     "require-dev": {
         "bossa/phpspec2-expect": "~1.0"
     },
