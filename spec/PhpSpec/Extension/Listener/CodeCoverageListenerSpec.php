@@ -142,12 +142,10 @@ class CodeCoverageListenerSpec extends ObjectBehavior
             'blacklist_files' => array('src/filtered_file')
         ));
 
-        $filter->addDirectoryToWhitelist('src')->willReturn(null);
-        $filter->removeDirectoryFromWhitelist('src/filter')->willReturn(null);
-        $filter->addDirectoryToBlacklist('src/filter')->willReturn(null);
-        $filter->addFileToWhitelist('src/filter/whilelisted_file')->willReturn(null);
-        $filter->removeFileFromWhitelist('src/filtered_file')->willReturn(null);
-        $filter->addFileToBlacklist('src/filtered_file')->willReturn(null);
+        $filter->addDirectoryToWhitelist('src')->shouldBeCalled();
+        $filter->removeDirectoryFromWhitelist('src/filter')->shouldBeCalled();
+        $filter->addFileToWhitelist('src/filter/whilelisted_file')->shouldBeCalled();
+        $filter->removeFileFromWhitelist('src/filtered_file')->shouldBeCalled();
 
         $this->beforeSuite($event);
     }
