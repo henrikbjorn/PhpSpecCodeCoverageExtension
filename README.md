@@ -3,16 +3,8 @@
 
 Add it to your `composer.json` file to install with [Composer](http://getcomposer.org):
 
-``` json
-{
-    "require" : {
-        "henrikbjorn/phpspec-code-coverage": "~1.0"
-    }
-}
-```
-
 ``` bash
-$ composer update henrikbjorn/phpspec-code-coverage
+composer require henrikbjorn/phpspec-code-coverage:^2.0
 ```
 
 Enable it in your `phpspec.yml` file:
@@ -32,9 +24,7 @@ It is possible to control a bit out how the code coverage is done through `phpsp
 adding a `code_coverage` key which takes a hash of options.
 
 * `whitelist` takes an array of directories to whitelist (default: `lib`, `src`).
-* `blacklist` takes an array of directories to blacklist (default: `test`, `spec`, `vendor`).
 * `whitelist_files` takes an array of files to whitelist (default: none).
-* `blacklist_files` takes an array of files to blacklist (default: none).
 * `format` (optional) could be one or many of: `clover`, `php`, `text`, `html` (default `html`)
 * `output` takes a location relative to the place you are running `phpspec run` (default: `coverage`). If you configure multiple formats, takes a hash of format:output e.g.
 ```yaml
