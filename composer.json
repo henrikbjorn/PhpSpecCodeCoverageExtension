@@ -8,8 +8,7 @@
     "require" : {
         "php": ">=5.3.3",
         "phpspec/phpspec": "~2.0",
-        "phpunit/php-code-coverage": "~2.0"
-
+        "phpunit/php-code-coverage": "^3"
     },
     "suggest": {
         "ext-xdebug": "To allow Coverage generation."
