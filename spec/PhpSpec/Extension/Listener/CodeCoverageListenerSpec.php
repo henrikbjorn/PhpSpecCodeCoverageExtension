@@ -74,7 +74,7 @@ class CodeCoverageListenerSpec extends ObjectBehavior
         $this->afterSuite($event);
     }
 
-    function it_should_not_color_output_text_report_by_default(
+    function it_should_not_color_output_text_report_unless_specified(
         \PHP_CodeCoverage $coverage,
         \PHP_CodeCoverage_Report_Text $text,
         SuiteEvent $event,
