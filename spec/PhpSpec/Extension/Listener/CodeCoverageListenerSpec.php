@@ -49,7 +49,7 @@ class CodeCoverageListenerSpec extends ObjectBehavior
         $this->afterSuite($event);
     }
 
-    function it_should_output_text_report(
+    function it_should_color_output_text_report_by_default(
         \PHP_CodeCoverage $coverage,
         \PHP_CodeCoverage_Report_Text $text,
         SuiteEvent $event,
@@ -65,9 +65,35 @@ class CodeCoverageListenerSpec extends ObjectBehavior
         ));
 
         $io->isVerbose()->willReturn(false);
+        $io->isDecorated()->willReturn(true);
         $this->setIO($io);
 
         $text->process($coverage, true)->willReturn('report');
+        $io->writeln('report')->shouldBeCalled();
+
+        $this->afterSuite($event);
+    }
+
+    function it_should_not_color_output_text_report_by_default(
+        \PHP_CodeCoverage $coverage,
+        \PHP_CodeCoverage_Report_Text $text,
+        SuiteEvent $event,
+        IO $io
+    ) {
+        $reports = array(
+            'text' => $text
+        );
+
+        $this->beConstructedWith($coverage, $reports);
+        $this->setOptions(array(
+            'format' => 'text'
+        ));
+
+        $io->isVerbose()->willReturn(false);
+        $io->isDecorated()->willReturn(false);
+        $this->setIO($io);
+
+        $text->process($coverage, false)->willReturn('report');
         $io->writeln('report')->shouldBeCalled();
 
         $this->afterSuite($event);

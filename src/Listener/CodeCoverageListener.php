@@ -89,7 +89,7 @@ class CodeCoverageListener implements \Symfony\Component\EventDispatcher\EventSu
             }
 
             if ($report instanceof \PHP_CodeCoverage_Report_Text) {
-                $output = $report->process($this->coverage, /* showColors */ true);
+                $output = $report->process($this->coverage, /* showColors */ $this->io->isDecorated());
                 $this->io->writeln($output);
             } else {
                 $report->process($this->coverage, $this->options['output'][$format]);
