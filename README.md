@@ -25,6 +25,8 @@ adding a `code_coverage` key which takes a hash of options.
 
 * `whitelist` takes an array of directories to whitelist (default: `lib`, `src`).
 * `whitelist_files` takes an array of files to whitelist (default: none).
+* `blacklist` takes an array of directories to blacklist
+* `blacklist_files` takes an array of files to blacklist
 * `format` (optional) could be one or many of: `clover`, `php`, `text`, `html` (default `html`)
 * `output` takes a location relative to the place you are running `phpspec run` (default: `coverage`). If you configure multiple formats, takes a hash of format:output e.g.
 ```yaml
