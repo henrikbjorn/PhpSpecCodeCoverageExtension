@@ -14,7 +14,7 @@
     },
 
     "suggest": {
-        "ext-xdebug": "To allow Coverage generation."
+        "ext-xdebug": "To allow coverage generation when not using a recent version of phpdbg"
     },
 
     "require-dev": {

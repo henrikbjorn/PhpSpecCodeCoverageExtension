@@ -27,7 +27,7 @@ class CodeCoverageListener implements \Symfony\Component\EventDispatcher\EventSu
             'format'    => array('html'),
         );
 
-        $this->enabled = extension_loaded('xdebug');
+        $this->enabled = extension_loaded('xdebug') || (PHP_SAPI === 'phpdbg');
     }
 
     public function beforeSuite(SuiteEvent $event)
@@ -73,7 +73,7 @@ class CodeCoverageListener implements \Symfony\Component\EventDispatcher\EventSu
     {
         if (!$this->enabled) {
             if ($this->io && $this->io->isVerbose()) {
-                $this->io->writeln('The Xdebug extension is not loaded. No code coverage will be generated.');
+                $this->io->writeln('Did not detect Xdebug extension or phpdbg. No code coverage will be generated.');
             }
 
             return;

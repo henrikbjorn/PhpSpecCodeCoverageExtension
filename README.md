@@ -41,3 +41,11 @@ code_coverage:
 * `show_uncovered_files` for including uncovered files in coverage reports (default `true`)
 * `lower_upper_bound` for coverage (default `35`)
 * `high_lower_bound` for coverage (default `70`)
+
+Running with phpdbg
+-------------------
+
+For faster execution, run phpspec with [phpdbg](http://phpdbg.com) instead of xdebug:
+```sh
+phpdbg -qrr phpspec run
+```
