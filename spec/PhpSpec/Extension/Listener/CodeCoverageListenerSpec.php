@@ -105,7 +105,7 @@ class CodeCoverageListenerSpec extends ObjectBehavior
 
     function it_should_output_html_report(
         CodeCoverage $coverage,
-        Report\HTML $html,
+        Report\Html\Facade $html,
         SuiteEvent $event,
         IO $io
     ) {
@@ -132,7 +132,7 @@ class CodeCoverageListenerSpec extends ObjectBehavior
 
     function it_should_provide_extra_output_in_verbose_mode(
         CodeCoverage $coverage,
-        Report\HTML $html,
+        Report\Html\Facade $html,
         SuiteEvent $event,
         IO $io
     ) {

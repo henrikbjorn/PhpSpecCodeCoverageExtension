@@ -78,13 +78,13 @@ class CodeCoverageExtension implements \PhpSpec\Extension\ExtensionInterface
                         );
                         break;
                     case 'xml':
-                        $reports['xml'] =  new Report\XML();
+                        $reports['xml'] =  new Report\Xml\Facade();
                         break;
                     case 'crap4j':
                         $reports['crap4j'] = new Report\Crap4j();
                         break;
                     case 'html':
-                        $reports['html'] = new Report\HTML();
+                        $reports['html'] = new Report\Html\Facade();
                         break;
                 }
             }
