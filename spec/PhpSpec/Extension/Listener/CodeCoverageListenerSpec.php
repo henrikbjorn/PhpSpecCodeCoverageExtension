@@ -8,9 +8,13 @@ use Prophecy\Argument;
 use PhpSpec\Console\IO;
 use PhpSpec\Event\SuiteEvent;
 
+use SebastianBergmann\CodeCoverage\CodeCoverage;
+use SebastianBergmann\CodeCoverage\Filter;
+use SebastianBergmann\CodeCoverage\Report;
+
 class CodeCoverageListenerSpec extends ObjectBehavior
 {
-    function let(\PHP_CodeCoverage $coverage)
+    function let(CodeCoverage $coverage)
     {
         $this->beConstructedWith($coverage, array());
     }
@@ -21,9 +25,9 @@ class CodeCoverageListenerSpec extends ObjectBehavior
     }
 
     function it_should_run_all_reports(
-        \PHP_CodeCoverage $coverage,
-        \PHP_CodeCoverage_Report_Clover $clover,
-        \PHP_CodeCoverage_Report_PHP $php,
+        CodeCoverage $coverage,
+        Report\Clover $clover,
+        Report\PHP $php,
         SuiteEvent $event,
         IO $io
     ) {
@@ -50,8 +54,8 @@ class CodeCoverageListenerSpec extends ObjectBehavior
     }
 
     function it_should_color_output_text_report_by_default(
-        \PHP_CodeCoverage $coverage,
-        \PHP_CodeCoverage_Report_Text $text,
+        CodeCoverage $coverage,
+        Report\Text $text,
         SuiteEvent $event,
         IO $io
     ) {
@@ -75,8 +79,8 @@ class CodeCoverageListenerSpec extends ObjectBehavior
     }
 
     function it_should_not_color_output_text_report_unless_specified(
-        \PHP_CodeCoverage $coverage,
-        \PHP_CodeCoverage_Report_Text $text,
+        CodeCoverage $coverage,
+        Report\Text $text,
         SuiteEvent $event,
         IO $io
     ) {
@@ -100,8 +104,8 @@ class CodeCoverageListenerSpec extends ObjectBehavior
     }
 
     function it_should_output_html_report(
-        \PHP_CodeCoverage $coverage,
-        \PHP_CodeCoverage_Report_HTML $html,
+        CodeCoverage $coverage,
+        Report\HTML $html,
         SuiteEvent $event,
         IO $io
     ) {
@@ -127,8 +131,8 @@ class CodeCoverageListenerSpec extends ObjectBehavior
     }
 
     function it_should_provide_extra_output_in_verbose_mode(
-        \PHP_CodeCoverage $coverage,
-        \PHP_CodeCoverage_Report_HTML $html,
+        CodeCoverage $coverage,
+        Report\HTML $html,
         SuiteEvent $event,
         IO $io
     ) {
@@ -152,9 +156,9 @@ class CodeCoverageListenerSpec extends ObjectBehavior
     }
 
     function it_should_correctly_handle_black_listed_files_and_directories(
-        \PHP_CodeCoverage $coverage,
+        CodeCoverage $coverage,
         SuiteEvent $event,
-        \PHP_CodeCoverage_Filter $filter
+        Filter $filter
     )
     {
         $this->beConstructedWith($coverage, array());

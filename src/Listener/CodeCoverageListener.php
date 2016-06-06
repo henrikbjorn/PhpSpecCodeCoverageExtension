@@ -6,6 +6,9 @@ use PhpSpec\Console\IO;
 use PhpSpec\Event\ExampleEvent;
 use PhpSpec\Event\SuiteEvent;
 
+use SebastianBergmann\CodeCoverage\CodeCoverage;
+use SebastianBergmann\CodeCoverage\Report;
+
 class CodeCoverageListener implements \Symfony\Component\EventDispatcher\EventSubscriberInterface
 {
     private $coverage;
@@ -14,7 +17,7 @@ class CodeCoverageListener implements \Symfony\Component\EventDispatcher\EventSu
     private $options;
     private $enabled;
 
-    public function __construct(\PHP_CodeCoverage $coverage, array $reports)
+    public function __construct(CodeCoverage $coverage, array $reports)
     {
         $this->coverage = $coverage;
         $this->reports  = $reports;
@@ -88,7 +91,7 @@ class CodeCoverageListener implements \Symfony\Component\EventDispatcher\EventSu
                 $this->io->writeln(sprintf('Generating code coverage report in %s format ...', $format));
             }
 
-            if ($report instanceof \PHP_CodeCoverage_Report_Text) {
+            if ($report instanceof Report\Text) {
                 $output = $report->process($this->coverage, /* showColors */ $this->io->isDecorated());
                 $this->io->writeln($output);
             } else {
