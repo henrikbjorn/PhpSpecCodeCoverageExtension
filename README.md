@@ -1,10 +1,10 @@
 [PhpSpec](http://phpspec.net) Code Coverage
 ===========================================
 
-Add it to your `composer.json` file to install with [Composer](http://getcomposer.org):
+Install with [Composer](http://getcomposer.org):
 
 ``` bash
-composer require henrikbjorn/phpspec-code-coverage:^2.0
+composer require --dev henrikbjorn/phpspec-code-coverage
 ```
 
 Enable it in your `phpspec.yml` file:
