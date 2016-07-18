@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpSpec;
+namespace PhpSpec\Extension;
 
 // PhpSpec changed the name of this interface
 if (!interface_exists('PhpSpec\\ExtensionInterface')) {
