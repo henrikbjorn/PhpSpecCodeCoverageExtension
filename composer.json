@@ -4,10 +4,7 @@
     "license" : "MIT",
 
     "autoload" : {
-        "psr-4" : { "PhpSpec\\Extension\\" : "src/" },
-        "files" : [
-            "src/stub.php"
-        ]
+        "psr-4" : { "PhpSpec\\Extension\\" : "src/" }
     },
 
     "require" : {
