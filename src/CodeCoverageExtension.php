@@ -13,7 +13,7 @@ use SebastianBergmann\CodeCoverage\Report;
  * Injects a Event Subscriber into the EventDispatcher. The Subscriber
  * will before each example add CodeCoverage Information.
  */
-class CodeCoverageExtension implements \PhpSpec\Extension\ExtensionInterface
+class CodeCoverageExtension implements \PhpSpec\Extension
 {
     /**
      * {@inheritDoc}
