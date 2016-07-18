@@ -5,6 +5,10 @@ namespace PhpSpec\Extension;
 use PhpSpec\ServiceContainer;
 use PhpSpec\Extension\Listener\CodeCoverageListener;
 
+use SebastianBergmann\CodeCoverage\CodeCoverage;
+use SebastianBergmann\CodeCoverage\Filter;
+use SebastianBergmann\CodeCoverage\Report;
+
 /**
  * Injects a Event Subscriber into the EventDispatcher. The Subscriber
  * will before each example add CodeCoverage Information.
@@ -17,11 +21,11 @@ class CodeCoverageExtension implements \PhpSpec\Extension\ExtensionInterface
     public function load(ServiceContainer $container)
     {
         $container->setShared('code_coverage.filter', function () {
-            return new \PHP_CodeCoverage_Filter();
+            return new Filter();
         });
 
         $container->setShared('code_coverage', function ($container) {
-            return new \PHP_CodeCoverage(null, $container->get('code_coverage.filter'));
+            return new CodeCoverage(null, $container->get('code_coverage.filter'));
         });
 
         $container->setShared('code_coverage.options', function ($container) {
@@ -60,13 +64,13 @@ class CodeCoverageExtension implements \PhpSpec\Extension\ExtensionInterface
             foreach ($options['format'] as $format) {
                 switch ($format) {
                     case 'clover':
-                        $reports['clover'] = new \PHP_CodeCoverage_Report_Clover();
+                        $reports['clover'] = new Report\Clover();
                         break;
                     case 'php':
-                        $reports['php'] =  new \PHP_CodeCoverage_Report_PHP();
+                        $reports['php'] =  new Report\PHP();
                         break;
                     case 'text':
-                        $reports['text'] =  new \PHP_CodeCoverage_Report_Text(
+                        $reports['text'] =  new Report\Text(
                             $options['lower_upper_bound'],
                             $options['high_lower_bound'],
                             $options['show_uncovered_files'],
@@ -74,13 +78,13 @@ class CodeCoverageExtension implements \PhpSpec\Extension\ExtensionInterface
                         );
                         break;
                     case 'xml':
-                        $reports['xml'] =  new \PHP_CodeCoverage_Report_XML();
+                        $reports['xml'] =  new Report\Xml\Facade();
                         break;
                     case 'crap4j':
-                        $reports['crap4j'] = new \PHP_CodeCoverage_Report_Crap4j();
+                        $reports['crap4j'] = new Report\Crap4j();
                         break;
                     case 'html':
-                        $reports['html'] = new \PHP_CodeCoverage_Report_HTML();
+                        $reports['html'] = new Report\Html\Facade();
                         break;
                 }
             }
