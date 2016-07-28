@@ -21,7 +21,7 @@ Configuration Options
 ---------------------
 
 It is possible to control a bit out how the code coverage is done through `phpspec.yml`. This is done by
-adding a `code_coverage` key which takes a hash of options.
+adding a hash of options to the extension key.
 
 * `whitelist` takes an array of directories to whitelist (default: `lib`, `src`).
 * `whitelist_files` takes an array of files to whitelist (default: none).
@@ -30,13 +30,14 @@ adding a `code_coverage` key which takes a hash of options.
 * `format` (optional) could be one or many of: `clover`, `php`, `text`, `html` (default `html`)
 * `output` takes a location relative to the place you are running `phpspec run` (default: `coverage`). If you configure multiple formats, takes a hash of format:output e.g.
 ```yaml
-code_coverage:
-  format:
-    - html
-    - clover
-  output:
-    html: coverage
-    clover: coverage.xml
+extensions:
+  PhpSpec\Extension\CodeCoverageExtension:
+    format:
+      - html
+      - clover
+    output:
+      html: coverage
+      clover: coverage.xml
 ```
 * `show_uncovered_files` for including uncovered files in coverage reports (default `true`)
 * `lower_upper_bound` for coverage (default `35`)

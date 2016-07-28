@@ -1,8 +1,8 @@
 <?php
 
-namespace PhpSpec\Extension\Listener;
+namespace HenrikBjorn\PhpSpecCodeCoverage\Listener;
 
-use PhpSpec\Console\IO;
+use PhpSpec\Console\ConsoleIO as IO;
 use PhpSpec\Event\ExampleEvent;
 use PhpSpec\Event\SuiteEvent;
 
