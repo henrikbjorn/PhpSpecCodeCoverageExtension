@@ -103,6 +103,6 @@ class CodeCoverageExtension implements \PhpSpec\Extension
             $listener->setOptions($container->getParam('code_coverage', array()));
 
             return $listener;
-        });
+        }, ['event_dispatcher.listeners']);
     }
 }

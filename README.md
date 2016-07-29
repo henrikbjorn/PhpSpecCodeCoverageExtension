@@ -43,6 +43,8 @@ extensions:
 * `lower_upper_bound` for coverage (default `35`)
 * `high_lower_bound` for coverage (default `70`)
 
+**Attention**: If the clover format option requires you to also set an output location!
+
 Running with phpdbg
 -------------------
 

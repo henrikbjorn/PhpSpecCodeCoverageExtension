@@ -9,7 +9,9 @@ use PhpSpec\Event\SuiteEvent;
 use SebastianBergmann\CodeCoverage\CodeCoverage;
 use SebastianBergmann\CodeCoverage\Report;
 
-class CodeCoverageListener implements \Symfony\Component\EventDispatcher\EventSubscriberInterface
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+
+class CodeCoverageListener implements EventSubscriberInterface
 {
     private $coverage;
     private $reports;
@@ -41,10 +43,24 @@ class CodeCoverageListener implements \Symfony\Component\EventDispatcher\EventSu
 
         $filter = $this->coverage->filter();
 
-        array_map(array($filter, 'addDirectoryToWhitelist'), $this->options['whitelist']);
-        array_map(array($filter, 'removeDirectoryFromWhitelist'), $this->options['blacklist']);
-        array_map(array($filter, 'addFileToWhitelist'), $this->options['whitelist_files']);
-        array_map(array($filter, 'removeFileFromWhitelist'), $this->options['blacklist_files']);
+        array_walk(
+            $this->options['whitelist'],
+            [$filter, 'addDirectoryToWhitelist']
+        );
+        array_walk(
+            $this->options['blacklist']
+            [$filter, 'removeDirectoryFromWhitelist']
+        );
+
+        array_walk(
+            $this->options['whitelist_files'],
+            [$filter, 'addFileToWhitelist']
+        );
+
+        array_walk(
+            $this->options['blacklist_files'],
+            [$filter, 'removeFileFromWhitelist']
+        );
     }
 
     public function beforeExample(ExampleEvent $event)
