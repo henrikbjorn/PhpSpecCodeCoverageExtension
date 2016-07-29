@@ -36,6 +36,10 @@ class CodeCoverageListener implements EventSubscriberInterface
         $this->enabled = extension_loaded('xdebug') || (PHP_SAPI === 'phpdbg');
     }
 
+    /**
+     * Note: We use array_map() instead of array_walk() because the latter expects
+     * the callback to take the value as the first and the index as the seconds parameter.
+     */
     public function beforeSuite(SuiteEvent $event)
     {
         if (!$this->enabled) {
@@ -44,23 +48,23 @@ class CodeCoverageListener implements EventSubscriberInterface
 
         $filter = $this->coverage->filter();
 
-        array_walk(
-            $this->options['whitelist'],
-            [$filter, 'addDirectoryToWhitelist']
+        array_map(
+            [$filter, 'addDirectoryToWhitelist'],
+            $this->options['whitelist']
         );
-        array_walk(
-            $this->options['blacklist'],
-            [$filter, 'removeDirectoryFromWhitelist']
-        );
-
-        array_walk(
-            $this->options['whitelist_files'],
-            [$filter, 'addFileToWhitelist']
+        array_map(
+            [$filter, 'removeDirectoryFromWhitelist'],
+            $this->options['blacklist']
         );
 
-        array_walk(
-            $this->options['blacklist_files'],
-            [$filter, 'removeFileFromWhitelist']
+        array_map(
+            [$filter, 'addFileToWhitelist'],
+            $this->options['whitelist_files']
+        );
+
+        array_map(
+            [$filter, 'removeFileFromWhitelist'],
+            $this->options['blacklist_files']
         );
     }
 
