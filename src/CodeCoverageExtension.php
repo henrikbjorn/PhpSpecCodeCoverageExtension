@@ -96,10 +96,10 @@ class CodeCoverageExtension implements \PhpSpec\Extension
 
         $container->define('event_dispatcher.listeners.code_coverage', function ($container) {
             $listener = new CodeCoverageListener(
+		$container->get('console.io'),
                 $container->get('code_coverage'),
                 $container->get('code_coverage.reports')
             );
-            $listener->setIO($container->get('console.io'));
             $listener->setOptions($container->getParam('code_coverage', array()));
 
             return $listener;

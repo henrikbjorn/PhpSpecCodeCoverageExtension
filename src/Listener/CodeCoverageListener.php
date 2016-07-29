@@ -2,7 +2,7 @@
 
 namespace HenrikBjorn\PhpSpecCodeCoverage\Listener;
 
-use PhpSpec\Console\ConsoleIO as IO;
+use PhpSpec\Console\ConsoleIO;
 use PhpSpec\Event\ExampleEvent;
 use PhpSpec\Event\SuiteEvent;
 
@@ -19,8 +19,9 @@ class CodeCoverageListener implements EventSubscriberInterface
     private $options;
     private $enabled;
 
-    public function __construct(CodeCoverage $coverage, array $reports)
+    public function __construct(ConsoleIO $io, CodeCoverage $coverage, array $reports)
     {
+	$this->io = $io;
         $this->coverage = $coverage;
         $this->reports  = $reports;
         $this->options  = array(
@@ -48,7 +49,7 @@ class CodeCoverageListener implements EventSubscriberInterface
             [$filter, 'addDirectoryToWhitelist']
         );
         array_walk(
-            $this->options['blacklist']
+            $this->options['blacklist'],
             [$filter, 'removeDirectoryFromWhitelist']
         );
 
@@ -114,11 +115,6 @@ class CodeCoverageListener implements EventSubscriberInterface
                 $report->process($this->coverage, $this->options['output'][$format]);
             }
         }
-    }
-
-    public function setIO(IO $io)
-    {
-        $this->io = $io;
     }
 
     public function setOptions(array $options)
