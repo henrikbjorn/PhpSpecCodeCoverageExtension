@@ -1,6 +1,6 @@
 <?php
 
-namespace HenrikBjorn\PhpSpecCodeCoverage;
+namespace PhpSpecCodeCoverage;
 
 use PhpSpec\ServiceContainer;
 
@@ -8,7 +8,7 @@ use SebastianBergmann\CodeCoverage\CodeCoverage;
 use SebastianBergmann\CodeCoverage\Filter;
 use SebastianBergmann\CodeCoverage\Report;
 
-use HenrikBjorn\PhpSpecCodeCoverage\Listener\CodeCoverageListener;
+use PhpSpecCodeCoverage\Listener\CodeCoverageListener;
 
 /**
  * Injects an Event Subscriber into the EventDispatcher.
@@ -96,7 +96,7 @@ class CodeCoverageExtension implements \PhpSpec\Extension
 
         $container->define('event_dispatcher.listeners.code_coverage', function ($container) {
             $listener = new CodeCoverageListener(
-		$container->get('console.io'),
+                $container->get('console.io'),
                 $container->get('code_coverage'),
                 $container->get('code_coverage.reports')
             );

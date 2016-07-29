@@ -4,7 +4,7 @@
     "license" : "MIT",
 
     "autoload" : {
-        "psr-4" : { "HenrikBjorn\\PhpSpecCodeCoverage\\" : "src/" }
+        "psr-4" : { "PhpSpecCodeCoverage\\" : "src/" }
     },
 
     "require" : {
@@ -18,7 +18,7 @@
     },
 
     "require-dev": {
-        "bossa/phpspec2-expect": "^1.0"
+        "bossa/phpspec2-expect": "dev-master"
     },
 
     "extra" : {

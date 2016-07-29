@@ -1,6 +1,6 @@
 <?php
 
-namespace HenrikBjorn\PhpSpecCodeCoverage\Listener;
+namespace PhpSpecCodeCoverage\Listener;
 
 use PhpSpec\Console\ConsoleIO;
 use PhpSpec\Event\ExampleEvent;
@@ -21,7 +21,7 @@ class CodeCoverageListener implements EventSubscriberInterface
 
     public function __construct(ConsoleIO $io, CodeCoverage $coverage, array $reports)
     {
-	$this->io = $io;
+        $this->io = $io;
         $this->coverage = $coverage;
         $this->reports  = $reports;
         $this->options  = array(
@@ -56,12 +56,10 @@ class CodeCoverageListener implements EventSubscriberInterface
             [$filter, 'removeDirectoryFromWhitelist'],
             $this->options['blacklist']
         );
-
         array_map(
             [$filter, 'addFileToWhitelist'],
             $this->options['whitelist_files']
         );
-
         array_map(
             [$filter, 'removeFileFromWhitelist'],
             $this->options['blacklist_files']
