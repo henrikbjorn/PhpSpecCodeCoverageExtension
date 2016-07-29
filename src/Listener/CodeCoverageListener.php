@@ -1,15 +1,17 @@
 <?php
 
-namespace PhpSpec\Extension\Listener;
+namespace PhpSpecCodeCoverage\Listener;
 
-use PhpSpec\Console\IO;
+use PhpSpec\Console\ConsoleIO;
 use PhpSpec\Event\ExampleEvent;
 use PhpSpec\Event\SuiteEvent;
 
 use SebastianBergmann\CodeCoverage\CodeCoverage;
 use SebastianBergmann\CodeCoverage\Report;
 
-class CodeCoverageListener implements \Symfony\Component\EventDispatcher\EventSubscriberInterface
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+
+class CodeCoverageListener implements EventSubscriberInterface
 {
     private $coverage;
     private $reports;
@@ -17,8 +19,9 @@ class CodeCoverageListener implements \Symfony\Component\EventDispatcher\EventSu
     private $options;
     private $enabled;
 
-    public function __construct(CodeCoverage $coverage, array $reports)
+    public function __construct(ConsoleIO $io, CodeCoverage $coverage, array $reports)
     {
+        $this->io = $io;
         $this->coverage = $coverage;
         $this->reports  = $reports;
         $this->options  = array(
@@ -33,6 +36,10 @@ class CodeCoverageListener implements \Symfony\Component\EventDispatcher\EventSu
         $this->enabled = extension_loaded('xdebug') || (PHP_SAPI === 'phpdbg');
     }
 
+    /**
+     * Note: We use array_map() instead of array_walk() because the latter expects
+     * the callback to take the value as the first and the index as the seconds parameter.
+     */
     public function beforeSuite(SuiteEvent $event)
     {
         if (!$this->enabled) {
@@ -41,10 +48,22 @@ class CodeCoverageListener implements \Symfony\Component\EventDispatcher\EventSu
 
         $filter = $this->coverage->filter();
 
-        array_map(array($filter, 'addDirectoryToWhitelist'), $this->options['whitelist']);
-        array_map(array($filter, 'removeDirectoryFromWhitelist'), $this->options['blacklist']);
-        array_map(array($filter, 'addFileToWhitelist'), $this->options['whitelist_files']);
-        array_map(array($filter, 'removeFileFromWhitelist'), $this->options['blacklist_files']);
+        array_map(
+            [$filter, 'addDirectoryToWhitelist'],
+            $this->options['whitelist']
+        );
+        array_map(
+            [$filter, 'removeDirectoryFromWhitelist'],
+            $this->options['blacklist']
+        );
+        array_map(
+            [$filter, 'addFileToWhitelist'],
+            $this->options['whitelist_files']
+        );
+        array_map(
+            [$filter, 'removeFileFromWhitelist'],
+            $this->options['blacklist_files']
+        );
     }
 
     public function beforeExample(ExampleEvent $event)
@@ -98,11 +117,6 @@ class CodeCoverageListener implements \Symfony\Component\EventDispatcher\EventSu
                 $report->process($this->coverage, $this->options['output'][$format]);
             }
         }
-    }
-
-    public function setIO(IO $io)
-    {
-        $this->io = $io;
     }
 
     public function setOptions(array $options)
