@@ -11,7 +11,7 @@ Enable it in your `phpspec.yml` file:
 
 ``` yaml
 extensions:
-    - PhpSpec\Extension\CodeCoverageExtension
+    - PhpSpecCodeCoverage\CodeCoverageExtension
 ```
 
 Now run your specs with the normal `phpspec run` and voilà your code coverage will be available in
@@ -31,7 +31,7 @@ adding a hash of options to the extension key.
 * `output` takes a location relative to the place you are running `phpspec run` (default: `coverage`). If you configure multiple formats, takes a hash of format:output e.g.
 ```yaml
 extensions:
-  PhpSpec\Extension\CodeCoverageExtension:
+  PhpSpecCodeCoverage\CodeCoverageExtension:
     format:
       - html
       - clover
