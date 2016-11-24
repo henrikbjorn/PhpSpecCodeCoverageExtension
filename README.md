@@ -1,6 +1,14 @@
 [PhpSpec](http://phpspec.net) Code Coverage
 ===========================================
 
+__DEPRECATED__: CodeCoverage should not be used
+with spec testing in order to see how good your
+tests are. For that reason, and because i don't 
+use it my self. This library is deprecated and
+will not receive any updates etc. Feel free
+to fork and register on Packagist under a new name
+as long as the LICENSE rules are followed.
+
 Install with [Composer](http://getcomposer.org):
 
 ``` bash
