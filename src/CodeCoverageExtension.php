@@ -3,6 +3,7 @@
 namespace PhpSpecCodeCoverage;
 
 use PhpSpec\ServiceContainer;
+use PhpSpec\Extension\ExtensionInterface;
 
 use SebastianBergmann\CodeCoverage\CodeCoverage;
 use SebastianBergmann\CodeCoverage\Filter;
@@ -14,22 +15,22 @@ use PhpSpecCodeCoverage\Listener\CodeCoverageListener;
  * Injects an Event Subscriber into the EventDispatcher.
  * The Subscriber will, before each example, add CodeCoverage information.
  */
-class CodeCoverageExtension implements \PhpSpec\Extension
+class CodeCoverageExtension implements ExtensionInterface
 {
     /**
      * {@inheritDoc}
      */
     public function load(ServiceContainer $container, array $params = [])
     {
-        $container->define('code_coverage.filter', function () {
+        $container->set('code_coverage.filter', function () {
             return new Filter();
         });
 
-        $container->define('code_coverage', function ($container) {
+        $container->set('code_coverage', function ($container) {
             return new CodeCoverage(null, $container->get('code_coverage.filter'));
         });
 
-        $container->define('code_coverage.options', function ($container) use ($params) {
+        $container->set('code_coverage.options', function ($container) use ($params) {
             $options = !empty($params) ? $params : $container->getParam('code_coverage');
 
             if (!isset($options['format'])) {
@@ -58,7 +59,7 @@ class CodeCoverageExtension implements \PhpSpec\Extension
             return $options;
         });
 
-        $container->define('code_coverage.reports', function ($container) {
+        $container->set('code_coverage.reports', function ($container) {
             $options = $container->get('code_coverage.options');
 
             $reports = array();
@@ -94,7 +95,7 @@ class CodeCoverageExtension implements \PhpSpec\Extension
             return $reports;
         });
 
-        $container->define('event_dispatcher.listeners.code_coverage', function ($container) {
+        $container->set('event_dispatcher.listeners.code_coverage', function (ServiceContainer $container) {
             $listener = new CodeCoverageListener(
                 $container->get('console.io'),
                 $container->get('code_coverage'),
