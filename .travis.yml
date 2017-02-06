@@ -1,10 +1,14 @@
 language: php
 
-php:
-    - 5.6
-    - 7.0
-
 sudo: false
+
+matrix:
+    include:
+        - php: 5.6
+        - php: 5.6
+          env: deps=low
+        - php: 7.0
+        - php: 7.1
 
 cache:
     directories:
@@ -12,5 +16,8 @@ cache:
 
 install:
     - travis_retry composer install
+
+before_script:
+    - if [[ $deps = low ]]; then composer update --prefer-lowest --prefer-stable; fi
 
 script: ./vendor/bin/phpspec run
