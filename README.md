@@ -3,11 +3,10 @@
 
 __DEPRECATED__: CodeCoverage should not be used
 with spec testing in order to see how good your
-tests are. For that reason, and because i don't 
-use it my self. This library is deprecated and
-will not receive any updates etc. Feel free
-to fork and register on Packagist under a new name
-as long as the LICENSE rules are followed.
+tests are. For that reason, and because I don't
+use it myself, this library is deprecated and
+will not receive any updates etc. For a maintained
+fork, you can check [leanphp/phpspec-code-coverage][1].
 
 Install with [Composer](http://getcomposer.org):
 
@@ -64,3 +63,5 @@ phpdbg -qrr phpspec run
 **Note**: The code coverage extension only works with phpdbg if you're using PHP 7.
 In PHP 5.6, phpdbg is missing the phpdbg_start_oplog function which is required to generate
 code coverage.
+
+[1]: https://github.com/leanphp/phpspec-code-coverage
