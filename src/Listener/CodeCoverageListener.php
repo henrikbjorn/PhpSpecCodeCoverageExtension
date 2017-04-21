@@ -2,7 +2,7 @@
 
 namespace PhpSpecCodeCoverage\Listener;
 
-use PhpSpec\Console\ConsoleIO;
+use PhpSpec\Console\IO;
 use PhpSpec\Event\ExampleEvent;
 use PhpSpec\Event\SuiteEvent;
 
@@ -19,7 +19,7 @@ class CodeCoverageListener implements EventSubscriberInterface
     private $options;
     private $enabled;
 
-    public function __construct(ConsoleIO $io, CodeCoverage $coverage, array $reports)
+    public function __construct(IO $io, CodeCoverage $coverage, array $reports)
     {
         $this->io = $io;
         $this->coverage = $coverage;
