@@ -18,7 +18,7 @@ Enable it in your `phpspec.yml` file:
 
 ``` yaml
 extensions:
-    - PhpSpecCodeCoverage\CodeCoverageExtension
+    PhpSpecCodeCoverage\CodeCoverageExtension: ~
 ```
 
 Now run your specs with the normal `phpspec run` and voilà your code coverage will be available in
